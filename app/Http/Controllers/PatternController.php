@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Concession;
 use App\Models\Context;
+use App\Models\ErreurAcheminement;
+use App\Models\ErreurConstruction;
 use App\Models\Facade;
 use App\Models\FactureLine;
 use App\Models\FirstObserver;
@@ -15,6 +17,8 @@ use Illuminate\Http\Request;
 use App\Models\Singleton;
 use App\Models\Sujet;
 use App\Models\Usine;
+use App\Models\Handler;
+use App\Models\Livrée;
 
 class PatternController extends Controller
 {
@@ -174,7 +178,15 @@ class PatternController extends Controller
 
     public function showChain()
     {
-        return view('chain');
+        $handler = new Handler();
+        $construction = new ErreurConstruction();
+        $achemineùent = new ErreurAcheminement();
+        $livrée = new Livrée();
+
+        $handler->addReceiver($construction);
+        $handler->addReceiver($achemineùent);
+        $handler->addReceiver($livrée);
+        return view('chain', ["handler"=>$handler]);
     }
 
     public function showState()
