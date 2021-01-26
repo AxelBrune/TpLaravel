@@ -13,6 +13,11 @@ abstract class Voiture
     private $facture;
     private $modele;
 
+    public function __construct()
+    {
+        $this->children = [];
+    }
+
     public function getConcession()
     {
         return $this->concession;
@@ -54,5 +59,10 @@ abstract class Voiture
     public function getOptions()
     {
         return "Je suis sans options. ";
+    }
+
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

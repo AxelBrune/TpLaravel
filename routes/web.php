@@ -25,3 +25,6 @@ Route::get('/observer', [PatternController::class, 'showObserver']);
 Route::get('/strategy', [PatternController::class, 'showStrategy']);
 Route::get('/template', [PatternController::class, 'showTemplate']);
 Route::get('/command', [PatternController::class, 'showCommand']);
+Route::get('/composite', [PatternController::class, 'showComposite']);
+Route::get('/chain', [PatternController::class, 'showChain']);
+Route::get('/state', [PatternController::class, 'showState']);

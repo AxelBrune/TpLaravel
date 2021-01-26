@@ -41,6 +41,15 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/command">Commande</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/composite">Composite</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/chain">Chain of Responsability</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/state">State</a>
+              </li>
             </ul>
           </div>
         </div>

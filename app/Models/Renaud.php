@@ -13,4 +13,16 @@ class Renaud extends Voiture
     {
         return "Je suis une Renaud. ";
     }
+
+    protected $parent;
+
+    public function setParent(Voiture $voiture)
+    {
+        $this->parent = $voiture;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

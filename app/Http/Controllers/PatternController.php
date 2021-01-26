@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Concession;
+use App\Models\Context;
 use App\Models\Facade;
 use App\Models\FactureLine;
 use App\Models\FirstObserver;
 use App\Models\IterableArray;
+use App\Models\Noeud;
+use App\Models\Feuille;
 use App\Models\SecondObserver;
 use Illuminate\Http\Request;
 use App\Models\Singleton;
@@ -104,5 +107,79 @@ class PatternController extends Controller
     public function showCommand()
     {
         return view('command');
+    }
+
+    public function showComposite()
+    {
+        $concession = new Concession('Concession de Composite');
+
+        $car1 = Usine::createCar('Renaud');
+        $car1->setConcession($concession);
+        $car1->setModele('Clio');
+        $car1->setFacture(1000);
+        $concession->addCar($car1);
+
+
+        $car2 = Usine::createCar('Opel');
+        $car2->setConcession($concession);
+        $car2->setModele('Corsa');
+        $car2->setFacture(2000);
+        $concession->addCar($car2);  
+
+        $car3 = Usine::createCar('Opel');
+        $car3->setConcession($concession);
+        $car3->setModele('Corsa');
+        $car3->setFacture(3000);
+        $concession->addCar($car3); 
+
+        $car4 = Usine::createCar('Opel');
+        $car4->setConcession($concession);
+        $car4->setModele('Corsa');
+        $car4->setFacture(4000);
+        $concession->addCar($car4); 
+
+        $car5 = Usine::createCar('Renaud');
+        $car5->setConcession($concession);
+        $car5->setModele('Clio 2');
+        $car5->setFacture(5000);
+        $concession->addCar($car5); 
+
+        $car6 = Usine::createCar('Renaud');
+        $car6->setConcession($concession);
+        $car6->setModele('Test');
+        $car6->setFacture(6000);
+        $concession->addCar($car6); 
+
+        $noeud1 = new Noeud();
+        $noeud2 = new Noeud();
+        $noeud3 = new Noeud();
+        $feuille1 = new Feuille($car4);
+        $feuille2 = new Feuille($car5);
+        $feuille3 = new Feuille($car6);
+
+        $noeud1->addChild($noeud2);
+        $noeud1->addChild($noeud3);
+        $noeud2->addChild($feuille1->getCar());
+        $noeud2->addChild($feuille2->getCar());
+        $noeud3->addChild($feuille3->getCar());
+
+        $feuille1->setParent($car2);
+        $feuille2->setParent($car2);
+        $feuille3->setParent($car3);
+
+        return view('composite', 
+        ["v1"=>$noeud1,"v2"=>$noeud2,"v3"=>$noeud3,
+        "f1"=>$feuille1,"f2"=>$feuille2, "f3"=>$feuille3]);
+    }
+
+    public function showChain()
+    {
+        return view('chain');
+    }
+
+    public function showState()
+    {
+        $context = new Context("demande"); 
+        return view('state', ["context"=>$context]);
     }
 }
